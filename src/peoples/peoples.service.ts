@@ -7,7 +7,9 @@ export class PeoplesService {
     peoples: People [] = [];
 
     insertPeople(name: string, job: string, desc: string, hours: number, salary: number) {
-        const newPeople = new People(new Date().toString(), job, desc, hours, salary);
+        const peopleId = new Date().toString();
+        const newPeople = new People(peopleId, name, job, desc, hours, salary);
         this.peoples.push(newPeople);
+        return peopleId;
     }
 }

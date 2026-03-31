@@ -1,4 +1,4 @@
-import { Controller, Post} from '@nestjs/common';
+import { Controller, Post, Body} from '@nestjs/common';
 
 import { PeoplesService } from './peoples.service';
 
@@ -7,8 +7,12 @@ export class PeopleController {
     constructor(private readonly peoplesService: PeoplesService) {}
 
     @Post()
-    addPeople(): any {
-        this.peoplesService.insertPeople();
-
+    addPeople(
+        @Body('name') peopleName: string, 
+        @Body('job') peopleJob: string, 
+        @Body('description') peopleDescription: string, 
+        @Body('hours') peopleHours: number, 
+        @Body('salary') peopleSalary: number): any {
+        this.peoplesService.insertPeople(peopleName, peopleJob, peopleDescription, peopleHours, peopleSalary); 
     }
 }
