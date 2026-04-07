@@ -22,34 +22,48 @@ export class PeoplesService {
         return result.id as string;
     }
 
-    getPeoples() {
-        return [...this.peoples];
+    async getPeoples() {
+        const peoples = await this.peopleModel.find().exec();
+        return peoples.map((people) => ({
+            id: people.id, 
+            name: people.name, 
+            job: people.job, 
+            description: people.description, 
+            hours: people.hours, 
+            salary: people.salary,
+        }));
     }
 
-    getSinglePeople(peopleId: string) {
-        const people = this.findPeople(peopleId)[0];
-        return {...people};
+    async getSinglePeople(peopleId: string) {
+        const people = await this.findPeople(peopleId);
+        return {
+            id: people.id, 
+            name: people.name, 
+            job: people.job, 
+            description: people.description, 
+            hours: people.hours, 
+            salary: people.salary,
+        };
     }
 
-    updatePeople(peopleId: string, name: string, job: string, description: string, hours: number, salary: number) {
-        const [people, index] = this.findPeople(peopleId);
-        const updatedpeople = {...people};
+    async updatePeople(peopleId: string, name: string, job: string, description: string, hours: number, salary: number) {
+        const updatedPeople = await this.findPeople(peopleId);
         if(name) {
-            updatedpeople.name = name;
+            updatedPeople.name = name;
         }
         if(job) {
-            updatedpeople.job = job;
+            updatedPeople.job = job;
         }
         if(description) {
-            updatedpeople.description = description;
+            updatedPeople.description = description;
         }
         if(hours) {
-            updatedpeople.hours = hours;
+            updatedPeople.hours = hours;
         }
         if(salary) {
-            updatedpeople.salary = salary;
+            updatedPeople.salary = salary;
         }
-        this.peoples[index] = updatedpeople;
+        updatedPeople.save();
     }
 
     deletePeople(peopleId: string) {
@@ -57,13 +71,17 @@ export class PeoplesService {
         this.peoples.splice(index, 1);
     }
 
-    private findPeople(id: string): [People, number] {
-        const peopleIndex = this.peoples.findIndex((people) => people.id === id);
-        const people = this.peoples[peopleIndex];
+    private async findPeople(id: string): Promise<People> {
+        let people; 
+        try {
+            people = await this.peopleModel.findById(id);
+        } catch (error) {
+            throw new NotFoundException('Could not find people');
+        }
         if (!people) {
             throw new NotFoundException('Could not find people');
         }
-        return [people, peopleIndex];
+        return people;
     }
 
 }

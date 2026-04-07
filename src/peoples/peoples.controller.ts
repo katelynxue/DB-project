@@ -25,8 +25,9 @@ export class PeopleController {
     }
 
     @Get()
-    getAllPeoples() {
-        return this.peoplesService.getPeoples();
+    async getAllPeoples() {
+        const peoples = await this.peoplesService.getPeoples();
+        return peoples;
     }
 
     @Get(':id')
