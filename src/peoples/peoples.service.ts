@@ -6,9 +6,9 @@ import {People} from './people.model';
 
 @Injectable()
 export class PeoplesService {
-    private peoples: People [] = [];
-
-    constructor(@InjectModel('People') private readonly peopleModel: Model<People>) {}
+    constructor(
+        @InjectModel('People') private readonly peopleModel: Model<People>
+    ) {}
 
     async insertPeople(name: string, job: string, desc: string, hours: number, salary: number) {
         const newPeople = new this.peopleModel({
@@ -46,7 +46,14 @@ export class PeoplesService {
         };
     }
 
-    async updatePeople(peopleId: string, name: string, job: string, description: string, hours: number, salary: number) {
+    async updatePeople(
+        peopleId: string, 
+        name: string, 
+        job: string, 
+        description: string, 
+        hours: number, 
+        salary: number
+    ) {
         const updatedPeople = await this.findPeople(peopleId);
         if(name) {
             updatedPeople.name = name;
@@ -66,15 +73,18 @@ export class PeoplesService {
         updatedPeople.save();
     }
 
-    deletePeople(peopleId: string) {
-        const index = this.findPeople(peopleId)[1];
-        this.peoples.splice(index, 1);
+    async deletePeople(peopleId: string) {
+        const result = await this.peopleModel.deleteOne({_id: peopleId}).exec();
+        if (result.deletedCount === 0) {
+            throw new NotFoundException('Could not find people');
+
+        }
     }
 
     private async findPeople(id: string): Promise<People> {
         let people; 
         try {
-            people = await this.peopleModel.findById(id);
+            people = await this.peopleModel.findById(id).exec();
         } catch (error) {
             throw new NotFoundException('Could not find people');
         }
