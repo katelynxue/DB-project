@@ -1,16 +1,25 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {Injectable, NotFoundException} from "@nestjs/common";
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
 
-import { People } from './people.model';
+import {People} from './people.model';
 
 @Injectable()
 export class PeoplesService {
     private peoples: People [] = [];
 
-    insertPeople(name: string, job: string, desc: string, hours: number, salary: number) {
-        const peopleId = Math.random().toString();
-        const newPeople = new People(peopleId, name, job, desc, hours, salary);
-        this.peoples.push(newPeople);
-        return peopleId;
+    constructor(@InjectModel('People') private readonly peopleModel: Model<People>) {}
+
+    async insertPeople(name: string, job: string, desc: string, hours: number, salary: number) {
+        const newPeople = new this.peopleModel({
+            name, 
+            job, 
+            description: desc, 
+            hours, 
+            salary,
+        });
+        const result = await newPeople.save();
+        return result.id as string;
     }
 
     getPeoples() {

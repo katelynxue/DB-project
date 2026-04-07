@@ -7,14 +7,14 @@ export class PeopleController {
     constructor(private readonly peoplesService: PeoplesService) {}
 
     @Post()
-    addPeople(
+    async addPeople(
         @Body('name') peopleName: string, 
         @Body('job') peopleJob: string, 
         @Body('description') peopleDescription: string, 
         @Body('hours') peopleHours: number, 
         @Body('salary') peopleSalary: number,
     ) {
-        const generatedId = this.peoplesService.insertPeople(
+        const generatedId = await this.peoplesService.insertPeople(
             peopleName, 
             peopleJob, 
             peopleDescription, 
