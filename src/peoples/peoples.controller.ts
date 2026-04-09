@@ -53,4 +53,9 @@ export class PeopleController {
         await this.peoplesService.deletePeople(peopleId);
         return null;
     }
+
+    @Get('job')
+    async getPeopleByJob(@Param('job') job: string,) {
+        await this.peoplesService.getPeopleByJob(job);
+    }
 }

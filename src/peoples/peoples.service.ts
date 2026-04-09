@@ -94,4 +94,9 @@ export class PeoplesService {
         return people;
     }
 
+    async getPeopleByJob(job: string) {
+        const jobs = await this.peopleModel.find({job:job}).exec();
+        return jobs;
+    }
+
 }
