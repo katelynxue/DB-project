@@ -56,7 +56,7 @@ export class PeopleController {
 
     @Get('/job/:job')
     async getPeopleByJob(@Param('job') job: string,) {
-        await this.peoplesService.getPeopleByJob(job);
+        return await this.peoplesService.getPeopleByJob(job);
     }
 
     @Get('/salary')
