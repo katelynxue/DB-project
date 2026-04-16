@@ -99,4 +99,17 @@ export class PeoplesService {
         return jobs;
     }
 
+    async getPeopleBySalary(min: number, max: number) {
+        const filter: any = {};
+        
+        if(min) {
+            filter.salary = {...filter.salary, };
+        }
+
+        if(max) {
+            filter.salary = {...filter.salary, };
+        }
+        return await this.peopleModel.find(filter).exec();
+    }
+
 }

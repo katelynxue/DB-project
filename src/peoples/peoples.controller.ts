@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, Query} from '@nestjs/common';
 
 import { PeoplesService } from './peoples.service';
 
@@ -54,8 +54,16 @@ export class PeopleController {
         return null;
     }
 
-    @Get('job')
+    @Get('/job/:job')
     async getPeopleByJob(@Param('job') job: string,) {
         await this.peoplesService.getPeopleByJob(job);
+    }
+
+    @Get('/salary')
+    async getPeopleBySalary(
+        @Query('min') min: number,
+        @Query('max') max: number,
+    ){
+        return this.peoplesService.getPeopleBySalary(min, max);
     }
 }
