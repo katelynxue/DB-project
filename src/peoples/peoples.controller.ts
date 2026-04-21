@@ -59,11 +59,19 @@ export class PeopleController {
         return await this.peoplesService.getPeopleByJob(job);
     }
 
-    @Get('/salary')
+    @Get('/salary/:min/:max')
     async getPeopleBySalary( //https://docs.nestjs.com/controllers#request-object
         @Query('min') min: number,
         @Query('max') max: number,
     ){
-        return this.peoplesService.getPeopleBySalary(min, max);
+        return this.peoplesService.getPeopleBySalary(
+            Number(min), 
+            Number(max),
+        );
+    }
+
+    @Get('/hours/:hours')
+    async getPeopleByHours(@Param('hours') hours:number,) {
+        return await this.peoplesService.getPeopleByHours(hours);
     }
 }

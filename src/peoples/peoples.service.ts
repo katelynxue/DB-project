@@ -112,4 +112,9 @@ export class PeoplesService {
         return await this.peopleModel.find(filter).exec();
     }
 
+    async getPeopleByHours(hours: number) {
+        const hour = await this.peopleModel.find({hours:hours}).exec();
+        return hour;
+    }
+
 }
