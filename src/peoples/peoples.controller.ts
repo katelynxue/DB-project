@@ -60,7 +60,7 @@ export class PeopleController {
     }
 
     @Get('/salary')
-    async getPeopleBySalary(
+    async getPeopleBySalary( //https://docs.nestjs.com/controllers#request-object
         @Query('min') min: number,
         @Query('max') max: number,
     ){

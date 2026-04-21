@@ -99,15 +99,15 @@ export class PeoplesService {
         return jobs;
     }
 
-    async getPeopleBySalary(min: number, max: number) {
+    async getPeopleBySalary(min: number, max: number) { //https://www.mongodb.com/docs/manual/reference/operator/aggregation/min/
         const filter: any = {};
         
         if(min) {
-            filter.salary = {...filter.salary, };
+            filter.salary = {...filter.salary, $gte: min};
         }
 
         if(max) {
-            filter.salary = {...filter.salary, };
+            filter.salary = {...filter.salary, $lte: max};
         }
         return await this.peopleModel.find(filter).exec();
     }
