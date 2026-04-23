@@ -116,5 +116,6 @@ export class PeoplesService {
         const hour = await this.peopleModel.find({hours:hours}).exec();
         return hour;
     }
+    
 
 }

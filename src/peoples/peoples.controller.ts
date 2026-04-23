@@ -74,4 +74,5 @@ export class PeopleController {
     async getPeopleByHours(@Param('hours') hours:number,) {
         return await this.peoplesService.getPeopleByHours(hours);
     }
+    
 }
