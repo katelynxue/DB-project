@@ -10,7 +10,7 @@ export class PeoplesService {
         @InjectModel('People') private readonly peopleModel: Model<People>
     ) {}
 
-    async insertPeople(name: string, job: string, desc: string, hours: number, salary: number) {
+    async insertPeople(name: string, job: string, desc: string, hours: number, salary: number) { // all the variables I want to have
         const newPeople = new this.peopleModel({
             name, 
             job, 

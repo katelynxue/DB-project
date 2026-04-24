@@ -54,7 +54,7 @@ export class PeopleController {
         return null;
     }
 
-    @Get('/job/:job')
+    @Get('/job/:job') // adding some more get 
     async getPeopleByJob(@Param('job') job: string,) {
         return await this.peoplesService.getPeopleByJob(job);
     }

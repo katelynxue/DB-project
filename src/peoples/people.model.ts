@@ -9,7 +9,7 @@ export const PeopleSchema = new mongoose.Schema({
 });
 
 
-export interface People extends mongoose.Document{
+export interface People extends mongoose.Document{ // the variables needed for each person
     id: string;
     name: string; 
     job: string;

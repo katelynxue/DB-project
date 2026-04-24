@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PeoplesModule } from './peoples/peoples.module';
+import { PeoplesModule } from './peoples/peoples.module'; // kept almost exactly the same as video
 
 @Module({
   imports: [PeoplesModule, MongooseModule.forRoot(

@@ -1,4 +1,4 @@
-import { Controller, Get, Header} from '@nestjs/common'; // began wiht the tutorial
+import { Controller, Get, Header} from '@nestjs/common'; // began with the tutorial for basic set up
 import { AppService } from './app.service';
 
 @Controller()
